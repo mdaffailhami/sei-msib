@@ -1,7 +1,13 @@
 package com.mdi.api.models;
 
 import java.util.Set;
+
+import org.hibernate.annotations.CreationTimestamp;
+import org.json.JSONObject;
+
 import java.util.Date;
+import java.text.SimpleDateFormat;
+import java.text.ParseException;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -23,33 +29,72 @@ public class Proyek {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 
-    @Column(name = "nama_proyek")
+    @Column(name = "nama_proyek", nullable = false)
     private String namaProyek;
 
+    @Column(name = "client", nullable = false)
     private String client;
 
-    @Column(name = "tgl_mulai", columnDefinition = "DATETIME")
+    @Column(name = "tgl_mulai", nullable = false, columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglMulai;
 
-    @Column(name = "tgl_selesai", columnDefinition = "DATETIME")
+    @Column(name = "tgl_selesai", nullable = false, columnDefinition = "DATETIME")
     @Temporal(TemporalType.TIMESTAMP)
     private Date tglSelesai;
 
-    @Column(name = "pimpinan_proyek")
+    @Column(name = "pimpinan_proyek", nullable = false)
     private String pimpinanProyek;
 
-    @Column(name = "keterangan", columnDefinition = "TEXT")
+    @Column(name = "keterangan", nullable = false, columnDefinition = "TEXT")
     private String keterangan;
 
-    @Column(name = "created_at", columnDefinition = "TIMESTAMP")
-    @Temporal(TemporalType.TIMESTAMP)
+    @Column(name = "created_at", nullable = false, updatable = false)
+    @CreationTimestamp
     private Date createdAt;
 
     @ManyToMany(cascade = { CascadeType.ALL })
     @JoinTable(name = "proyek_lokasi", joinColumns = { @JoinColumn(name = "proyek_id") }, inverseJoinColumns = {
             @JoinColumn(name = "lokasi_id") })
     private Set<Lokasi> lokasi;
+
+    public static Proyek fromJson(JSONObject json) {
+        SimpleDateFormat dateFormatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        try {
+            Date tglMulai = dateFormatter.parse(json.getString("tgl_mulai"));
+            Date tglSelesai = dateFormatter.parse(json.getString("tgl_selesai"));
+
+            Proyek proyek = new Proyek();
+            proyek.setNamaProyek(json.getString("nama_proyek"));
+            proyek.setClient(json.getString("client"));
+            proyek.setTglMulai(tglMulai);
+            proyek.setTglSelesai(tglSelesai);
+            proyek.setPimpinanProyek(json.getString("pimpinan_proyek"));
+            proyek.setKeterangan(json.getString("keterangan"));
+
+            return proyek;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+
+        json.put("id", this.id);
+        json.put("nama_proyek", this.namaProyek);
+        json.put("client", this.client);
+        json.put("tgl_mulai", this.tglMulai);
+        json.put("tgl_selesai", this.tglSelesai);
+        json.put("pimpinan_proyek", this.pimpinanProyek);
+        json.put("keterangan", this.keterangan);
+        json.put("created_at", this.createdAt);
+
+        return json;
+    }
 
     public int getId() {
         return id;
@@ -105,10 +150,6 @@ public class Proyek {
 
     public Date getCreatedAt() {
         return createdAt;
-    }
-
-    public void setCreatedAt(Date createdAt) {
-        this.createdAt = createdAt;
     }
 
     public Set<Lokasi> getLokasi() {
