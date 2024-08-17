@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class AddProject extends BaseController
+class TambahProyek extends BaseController
 {
     public function index(): string
     {
-        return view('add_project');
+        return view('tambah_proyek');
     }
 }
