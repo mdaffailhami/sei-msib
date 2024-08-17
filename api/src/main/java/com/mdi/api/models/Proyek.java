@@ -3,9 +3,11 @@ package com.mdi.api.models;
 import java.util.Set;
 
 import org.hibernate.annotations.CreationTimestamp;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.util.Date;
+import java.util.Iterator;
 import java.text.SimpleDateFormat;
 import java.text.ParseException;
 
@@ -53,9 +55,8 @@ public class Proyek {
     @CreationTimestamp
     private Date createdAt;
 
-    @ManyToMany(cascade = { CascadeType.ALL })
-    @JoinTable(name = "proyek_lokasi", joinColumns = { @JoinColumn(name = "proyek_id") }, inverseJoinColumns = {
-            @JoinColumn(name = "lokasi_id") })
+    @ManyToMany
+    @JoinTable(name = "proyek_lokasi", joinColumns = @JoinColumn(name = "proyek_id"), inverseJoinColumns = @JoinColumn(name = "lokasi_id"))
     private Set<Lokasi> lokasi;
 
     public static Proyek fromJson(JSONObject json) {
@@ -81,7 +82,7 @@ public class Proyek {
         return null;
     }
 
-    public JSONObject toJson() {
+    public JSONObject toJson(boolean includeLokasi) {
         JSONObject json = new JSONObject();
 
         json.put("id", this.id);
@@ -92,6 +93,16 @@ public class Proyek {
         json.put("pimpinan_proyek", this.pimpinanProyek);
         json.put("keterangan", this.keterangan);
         json.put("created_at", this.createdAt);
+
+        if (includeLokasi) {
+            JSONArray daftarLokasi = new JSONArray();
+            for (Iterator<Lokasi> iterator = this.lokasi.iterator(); iterator.hasNext();) {
+                Lokasi lokasi = iterator.next();
+
+                daftarLokasi.put(lokasi.toJson(false));
+            }
+            json.put("lokasi", daftarLokasi);
+        }
 
         return json;
     }
