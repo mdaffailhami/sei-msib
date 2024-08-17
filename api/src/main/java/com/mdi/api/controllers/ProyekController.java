@@ -1,7 +1,9 @@
 package com.mdi.api.controllers;
 
+import java.util.Iterator;
 import java.util.List;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,29 +27,41 @@ public class ProyekController {
     private ProyekService proyekService;
 
     @GetMapping
-    public ResponseEntity<List<Proyek>> getAllProyek() {
-        return new ResponseEntity<List<Proyek>>(proyekService.getAllProyek(), HttpStatus.OK);
+    public ResponseEntity<String> getAllProyek() {
+        List<Proyek> daftarProyek = proyekService.getAllProyek();
+        JSONArray json = new JSONArray();
+
+        for (Iterator<Proyek> iterator = daftarProyek.iterator(); iterator.hasNext();) {
+            Proyek proyek = iterator.next();
+
+            json.put(proyek.toJson(true));
+        }
+
+        return new ResponseEntity<String>(json.toString(), HttpStatus.OK);
     }
 
     @GetMapping("{id}")
-    public ResponseEntity<Proyek> getProyekById(@PathVariable("id") int id) {
-        return new ResponseEntity<Proyek>(proyekService.getProyekById(id), HttpStatus.OK);
+    public ResponseEntity<String> getProyekById(@PathVariable("id") int id) {
+        Proyek proyek = proyekService.getProyekById(id);
+        JSONObject json = proyek.toJson(true);
+
+        return new ResponseEntity<String>(json.toString(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<Proyek> saveProyek(@RequestBody String reqBody) {
-        JSONObject json = new JSONObject(reqBody);
-        Proyek proyek = Proyek.fromJson(json);
+    public ResponseEntity<String> saveProyek(@RequestBody String reqBody) {
+        Proyek proyek = proyekService.saveProyek(Proyek.fromJson(new JSONObject(reqBody)));
+        JSONObject json = proyek.toJson(false);
 
-        return new ResponseEntity<Proyek>(proyekService.saveProyek(proyek), HttpStatus.CREATED);
+        return new ResponseEntity<String>(json.toString(), HttpStatus.CREATED);
     }
 
     @PutMapping("{id}")
-    public ResponseEntity<Proyek> updateProyek(@PathVariable("id") int id, @RequestBody String reqBody) {
-        JSONObject json = new JSONObject(reqBody);
-        Proyek proyek = Proyek.fromJson(json);
+    public ResponseEntity<String> updateProyek(@PathVariable("id") int id, @RequestBody String reqBody) {
+        Proyek proyek = proyekService.updateProyek(id, Proyek.fromJson(new JSONObject(reqBody)));
+        JSONObject json = proyek.toJson(false);
 
-        return new ResponseEntity<Proyek>(proyekService.updateProyek(id, proyek), HttpStatus.OK);
+        return new ResponseEntity<String>(json.toString(), HttpStatus.OK);
     }
 
     @DeleteMapping("{id}")
