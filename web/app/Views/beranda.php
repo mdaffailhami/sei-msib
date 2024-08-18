@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
     <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
     <script defer src="/js/beranda.js"></script>
 
     <title>SEI - MSIB</title>
@@ -72,11 +73,36 @@
     </nav>
     <!-- /Navbar -->
 
-    <h1 class="text-center pt-4">Daftar Proyek</h1>
+    <!-- Daftar Proyek -->
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-center pt-4">Daftar Proyek</h1>
+        <a class="btn btn-primary" href="/tambah-proyek" style="height:40px">Tambah Proyek</a>
+      </div>
+      <hr>
+    </div>
 
     <div
-      id="projects-container"
+      id="proyek-container"
       class="container d-flex flex-wrap justify-content-center"
     ></div>
+    <!-- /Daftar Proyek -->
+
+    <br>
+    
+    <!-- Daftar Lokasi -->
+    <div class="container">
+      <div class="d-flex justify-content-between align-items-center">
+        <h1 class="text-center pt-4">Daftar Lokasi</h1>
+        <a class="btn btn-primary" href="/tambah-lokasi" style="height:40px">Tambah Lokasi</a>
+      </div>
+      <hr>
+    </div>
+
+    <div
+      id="lokasi-container"
+      class="container d-flex flex-wrap justify-content-center"
+    ></div>
+    <!-- /Daftar Lokasi -->
   </body>
 </html>

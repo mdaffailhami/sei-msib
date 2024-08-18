@@ -8,73 +8,63 @@
     <link rel="stylesheet" href="/css/form-page.css" />
 
     <script defer src="/js/bootstrap.bundle.min.js"></script>
-    <script defer src="/js/tambah-proyek.js"></script>
+    <script defer src="/js/edit-lokasi.js"></script>
 
-    <title>Tambah Proyek</title>
+    <title>Edit Lokasi</title>
   </head>
   <body>
     <div class="container mt-4 mb-5">
-      <h2>Tambah Proyek</h2>
+      <h2>Edit Lokasi</h2>
       <form id="form">
         <div class="mb-3">
-          <label for="nama_proyek" class="form-label">Nama proyek</label>
+          <label for="nama_lokasi" class="form-label">Nama lokasi</label>
           <input
             type="text"
             class="form-control"
-            id="nama_proyek"
-            placeholder="Masukkan nama proyek"
+            id="nama_lokasi"
+            placeholder="Masukkan nama lokasi"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="client" class="form-label">Client</label>
+          <label for="negara" class="form-label">Negara</label>
           <input
             type="text"
             class="form-control"
-            id="client"
-            placeholder="Masukkan nama client"
+            id="negara"
+            placeholder="Masukkan nama negara"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="tgl_mulai" class="form-label">Tanggal mulai</label>
-          <input type="date" class="form-control" id="tgl_mulai" required />
-        </div>
-        <div class="mb-3">
-          <label for="tgl_selesai" class="form-label">Tanggal selesai</label>
-          <input type="date" class="form-control" id="tgl_selesai" required />
-        </div>
-        <div class="mb-3">
-          <label for="pimpinan_proyek" class="form-label"
-            >Pimpinan proyek</label
-          >
+          <label for="provinsi" class="form-label">Provinsi</label>
           <input
             type="text"
             class="form-control"
-            id="pimpinan_proyek"
-            placeholder="Masukkan nama pimpinan proyek"
+            id="provinsi"
+            placeholder="Masukkan nama provinsi"
             required
           />
         </div>
         <div class="mb-3">
-          <label for="keterangan" class="form-label">Keterangan</label>
-          <textarea
+          <label for="kota" class="form-label">Kota</label>
+          <input
+            type="text"
             class="form-control"
-            id="keterangan"
-            rows="3"
-            placeholder="Masukkan keterangan proyek"
-          ></textarea>
+            id="kota"
+            placeholder="Masukkan nama kota"
+            required
+          />
         </div>
-        <!-- Field Lokasi menggunakan pop-up modal -->
         <div class="mb-3">
-          <label class="form-label">Lokasi</label>
+          <label class="form-label">Proyek</label>
           <button
             type="button"
             class="btn btn-outline-success"
             data-bs-toggle="modal"
-            data-bs-target="#lokasi_modal"
+            data-bs-target="#proyek_modal"
           >
-            Pilih Lokasi
+            Pilih Proyek
           </button>
         </div>
         <center>
@@ -85,18 +75,17 @@
       </form>
     </div>
 
-    <!-- Modal untuk memilih lokasi -->
     <div
       class="modal fade"
-      id="lokasi_modal"
+      id="proyek_modal"
       tabindex="-1"
-      aria-labelledby="lokasi_modal_label"
+      aria-labelledby="proyek_modal_label"
       aria-hidden="true"
     >
       <div class="modal-dialog">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="lokasi_modal_label">Pilih Lokasi</h5>
+            <h5 class="modal-title" id="proyek_modal_label">Pilih proyek</h5>
             <button
               type="button"
               class="btn-close"
@@ -106,8 +95,8 @@
           </div>
           <div class="modal-body">
             <!-- <div class="form-check">
-                        <input class="form-check-input" type="checkbox" value="Lokasi 1" id="lokasi1">
-                        <label class="form-check-label" for="lokasi1">Lokasi 1</label>
+                        <input class="form-check-input" type="checkbox" value="proyek 1" id="proyek1">
+                        <label class="form-check-label" for="proyek1">proyek 1</label>
                     </div> -->
           </div>
           <div class="modal-footer">
@@ -121,7 +110,7 @@
             <button
               type="button"
               class="btn btn-primary"
-              id="tombol_simpan_lokasi"
+              id="tombol_simpan_proyek"
             >
               Simpan Pilihan
             </button>

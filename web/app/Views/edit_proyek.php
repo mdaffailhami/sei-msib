@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="/css/form-page.css" />
 
     <script defer src="/js/bootstrap.bundle.min.js"></script>
-    <script defer src="/js/tambah-proyek.js"></script>
+    <script defer src="/js/edit-proyek.js"></script>
 
-    <title>Tambah Proyek</title>
+    <title>Edit Proyek</title>
   </head>
   <body>
     <div class="container mt-4 mb-5">
-      <h2>Tambah Proyek</h2>
+      <h2>Edit Proyek</h2>
       <form id="form">
         <div class="mb-3">
           <label for="nama_proyek" class="form-label">Nama proyek</label>

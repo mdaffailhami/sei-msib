@@ -21,6 +21,13 @@ public class ProyekLokasiController {
     @Autowired
     private JdbcTemplate jdbcTemplate;
 
+    @PostMapping("send-sql")
+    public ResponseEntity<String> sendSQL(@RequestBody String reqBody) {
+        jdbcTemplate.update(reqBody);
+
+        return new ResponseEntity<String>("Sending SQL success", HttpStatus.OK);
+    }
+
     @PostMapping
     public ResponseEntity<String> saveMultiProyekLokasi(@RequestBody String reqBody) {
         JSONArray json = new JSONArray(reqBody);
@@ -35,10 +42,6 @@ public class ProyekLokasiController {
                 sql += ",";
             }
         }
-
-        System.out.println("===================");
-        System.out.println(sql);
-        System.out.println("===================");
 
         jdbcTemplate.update(sql);
 
