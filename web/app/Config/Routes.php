@@ -7,4 +7,4 @@ use CodeIgniter\Router\RouteCollection;
  */
 $routes->get('/', 'Home::index');
 $routes->get('/tambah-proyek', 'TambahProyek::index');
-$routes->get('/add-location', 'AddLocation::index');
+$routes->get('/tambah-lokasi', 'TambahLokasi::index');

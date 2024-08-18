@@ -2,10 +2,10 @@
 
 namespace App\Controllers;
 
-class AddLocation extends BaseController
+class TambahLokasi extends BaseController
 {
     public function index(): string
     {
-        return view('add_location');
+        return view('tambah_lokasi');
     }
 }
